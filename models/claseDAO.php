@@ -28,6 +28,20 @@ class claseDAO {
       echo "Error al conectar a la base de datos ======>" . $e->getMessage();
     }
   }
+  function TraerClase($id) { // Function name changed to singular for clarity
+    $conexion = new Conexion('localhost', 'root', '', 'pruebabasephp');
+
+    try {
+      $conn = $conexion->Conectar();
+      $stmt = $conn->prepare("SELECT * FROM usuario WHERE id=:id"); // Using prepared statement to prevent SQL injection
+      $stmt->bindParam(':id', $id); // Bind the parameter
+      $stmt->execute();
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $row; // This line returns a single object
+    } catch (PDOException $e) {
+      echo "Error al conectar a la base de datos ======>" . $e->getMessage();
+    }
+  }
 
   
 
@@ -40,6 +54,35 @@ class claseDAO {
       $stmt->bindParam(':id', $id);
       $stmt->execute();
       $conexion->cerrarConexion(); // Ensure connection is closed
+    } catch (PDOException $e) {
+      echo "Error al conectar a la base de datos ======>" . $e->getMessage();
+    }
+  }
+  
+  function guardarClase($nombre,$email,$telefono,$direccion) {
+    $conexion = new Conexion('localhost', 'root', '', 'pruebabasephp');
+
+    try {
+      $conn = $conexion->Conectar();
+      $query = $conn->prepare// Using prepared statement for security
+      $stmt->bindParam(':id', $id);
+      $stmt->execute();
+      $conexion->cerrarConexion(); // Ensure connection is closed
+    } catch (PDOException $e) {
+      echo "Error al conectar a la base de datos ======>" . $e->getMessage();
+    }
+  }
+
+  function actualizarClase($id,$nombre,$email,$telefono,$direccion) {
+    $conexion = new Conexion('localhost', 'root', '', 'pruebabasephp');
+
+    try {
+      $conn = $conexion->Conectar();
+	  $query="UPDATE clase SET nombre='$nombre',email='$email',telefono='$telefono',direccion='$direccion'WHERE id=$id";
+      $stmt = $conn->prepare($query); 
+      $stmt->execute();
+	  return "Se actulizo Correctamente"
+      $conexion->cerrarConexion(); 
     } catch (PDOException $e) {
       echo "Error al conectar a la base de datos ======>" . $e->getMessage();
     }
