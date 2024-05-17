@@ -64,10 +64,10 @@ class claseDAO {
 
     try {
       $conn = $conexion->Conectar();
-      $query = $conn->prepare// Using prepared statement for security
-      $stmt->bindParam(':id', $id);
+      $query = "INSERT INTO usuario (id,nombre,email,telefono,direccion) VALUES ('{$nombre}','{$email}','{$telefono}','{$direccion}')";
+      $stmt->$conn->prepare($query);
       $stmt->execute();
-      $conexion->cerrarConexion(); // Ensure connection is closed
+      return "exito, se agrego un nuevo registro" // Ensure connection is closed
     } catch (PDOException $e) {
       echo "Error al conectar a la base de datos ======>" . $e->getMessage();
     }

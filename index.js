@@ -22,12 +22,24 @@ function cargarDatos(){
         });
     });
 }
+function limpiarFormulario(){
+    var inputIdClase=document.getElementById("id")
+    var inputNombre=document.getElementById("nombre");
+    var inputEmail=document.getElementById("email");
+    var inputTelefono=document.getElementById("telefono");
+    var inputDireccion=document.getElementById("direccion");
+    inputIdClase.value="";
+    inputNombre.value="";
+    inputEmail.value="";
+    inputTelefono.value="";
+    inputDireccion.value="";
+}
 
 function guardarClase(id,nombre,email,telefono,direccion){
     fetch('./controller/guardarController.php?id='+id+'&nombre='+nombre+'&email'+email+'&telefono'+telefono+'&direccion'+direccion)
     .then(response=>response.text())
     .then(data=>{
-        
+        limpiarFormulario();
         cargarDatos();
     });
 
@@ -72,7 +84,8 @@ function TraerDatos(id){
         var valTelefono=inputTelefono;
         var valDireccion=inputDireccion;
         var valid=inputIdClase.value;
-        guardarClase(valid)
+        
+        guardarClase(valid,valNombre,valEmail,valTelefono,valDireccion);
 
        
 
