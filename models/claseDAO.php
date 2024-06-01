@@ -23,7 +23,8 @@ class claseDAO {
       $conn = $conexion->Conectar();
       $stmt = $conn->query('SELECT * FROM usuario'); // Assuming "usuario" is your table
       $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      return $rows; // This line returns an array
+      return $rows; 
+      $conexion->cerrarConexion();// This line returns an array
     } catch (PDOException $e) {
       echo "Error al conectar a la base de datos ======>" . $e->getMessage();
     }
@@ -59,30 +60,30 @@ class claseDAO {
     }
   }
   
-  function guardarClase($nombre,$email,$telefono,$direccion) {
-    $conexion = new Conexion('localhost', 'root', '', 'pruebabasephp');
+  // function guardarClase($nombre,$email,$telefono,$direccion) {
+  //   $conexion = new Conexion('localhost', 'root', '', 'pruebabasephp');
 
-    try {
-      $conn = $conexion->Conectar();
-      $query = "INSERT INTO usuario (id,nombre,email,telefono,direccion) VALUES ('{$nombre}','{$email}','{$telefono}','{$direccion}')";
-      $stmt->$conn->prepare($query);
-      $stmt->execute();
-      return "exito, se agrego un nuevo registro" // Ensure connection is closed
-    } catch (PDOException $e) {
-      echo "Error al conectar a la base de datos ======>" . $e->getMessage();
-    }
-  }
+  //   try {
+  //     $conn = $conexion->Conectar();
+  //     $query = "INSERT INTO usuario (id,nombre,email,telefono,direccion) VALUES ('{$nombre}','{$email}','{$telefono}','{$direccion}')";
+  //     $stmt->$conn->prepare($query);
+  //     $stmt->execute();
+  //     return "exito, se agrego un nuevo registro"
+
+  //   } catch (PDOException $e) {
+  //     echo "Error al conectar a la base de datos ======>" . $e->getMessage();
+  //   }
+  // }
 
   function actualizarClase($id,$nombre,$email,$telefono,$direccion) {
     $conexion = new Conexion('localhost', 'root', '', 'pruebabasephp');
 
     try {
       $conn = $conexion->Conectar();
-	  $query="UPDATE clase SET nombre='$nombre',email='$email',telefono='$telefono',direccion='$direccion'WHERE id=$id";
+	    $query="UPDATE usuario SET nombre='$nombre',email='$email',telefono='$telefono',direccion='$direccion' WHERE id=$id";
       $stmt = $conn->prepare($query); 
       $stmt->execute();
-	  return "Se actulizo Correctamente"
-      $conexion->cerrarConexion(); 
+	    return "Se actulizo Correctamente";
     } catch (PDOException $e) {
       echo "Error al conectar a la base de datos ======>" . $e->getMessage();
     }
